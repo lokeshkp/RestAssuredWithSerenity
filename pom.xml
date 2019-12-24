@@ -58,8 +58,6 @@
 			<version>${serenity.cucumber.version}</version>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.codehaus.groovy</groupId> <artifactId>groovy-all</artifactId> 
-			<version>3.0.0-rc-1</version> </dependency> -->
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

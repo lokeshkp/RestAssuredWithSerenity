@@ -24,7 +24,7 @@ public class StudentSerenitySteps {
 		student.setFirstName(firstName);
 		student.setLastName(lastName);
 		student.setEmail(email);
-		student.setProgramme("ComputerScience1");
+		student.setProgramme(programme);
 		student.setCourses(courses);
 
 		return SerenityRest.rest().given().spec(ReuseableSpecifications.getGenericRequestSpec()).
@@ -39,7 +39,7 @@ public class StudentSerenitySteps {
 		student.setFirstName(firstName);
 		student.setLastName(lastName);
 		student.setEmail(email);
-		student.setProgramme("ComputerScience");
+		student.setProgramme(programme);
 		student.setCourses(courses);
 
 		return SerenityRest.rest().given().spec(ReuseableSpecifications.getGenericRequestSpec()).
@@ -49,8 +49,9 @@ public class StudentSerenitySteps {
 	
 	@Step("Deleting Student information with studentId{0}")
 	public void deleteStudent(int studentId) {
-		SerenityRest.rest().given().
-							when().delete("/"+studentId);
+		SerenityRest.rest().
+					given().
+					when().delete("/"+studentId);
 	}
 	
 	
@@ -60,16 +61,31 @@ public class StudentSerenitySteps {
 		String p1 = "findAll{it.firstName =='";
 		String p2 = "'}.get(0)";
 
-		return SerenityRest.rest().given().
-									when().get("/list").
-									then().extract().path(p1+firstName+p2);
+		return SerenityRest.rest().
+							given().
+							when().get("/list").
+							then().extract().path(p1+firstName+p2);
 	}
 	
 	
 	@Step("Getting Student Info by studentId{0}")
 	public ValidatableResponse getStudentById(int studentId) {
-		return SerenityRest.rest().given().
-									when().get("/"+studentId	).
-									then();
+		return SerenityRest.rest().
+							given().
+							when().get("/"+studentId).
+							then();
+	}
+	
+	@Step("Getting Student Info by email{0}")
+	public HashMap<String,Object> getStudentInfoByEmailId(String email){
+		String p1 = "findAll{it.email =='";
+		String p2 = "'}.get(0)";
+		
+		System.err.println("Mail id:"+p1+email+p2);
+		HashMap<String, Object> res= SerenityRest.rest().
+							given().
+							when().get("/list").
+							then().extract().path(p1+email+p2);
+		return res;
 	}
 }
